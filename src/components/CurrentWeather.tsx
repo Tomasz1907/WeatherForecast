@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { WeatherData } from '../types';
+import { getTranslation } from '../utils/translation';
 
 interface CurrentWeatherProps {
   weatherData: WeatherData | null;
@@ -32,27 +33,25 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weatherData, getWeather
     windSpeed: hourly.wind_speed_10m[currentHourIndex],
   };
 
-  const formattedDate = currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  const formattedTime = currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const formattedDate = currentTime.toLocaleDateString(navigator.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const formattedTime = currentTime.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   return (
     <div className='flex flex-col items-center w-full gap-5'>
-      <p className='text-xl font-bold'>Current Weather</p>
+      <p className='text-xl font-bold'>{getTranslation('currentWeather')}</p>
       <div className='flex flex-col items-center gap-5 border-2 rounded-xl p-5 min-w-[220px] pb-10 bg-gradient-to-b from-sky-300/50 to-neutral-800/50 shadow-lg'>
         <div className='text-center bg-sky-800 p-2 rounded'>
           <p className='text-xl font-bold'>{formattedDate}</p>
           <p className='text-md'>{formattedTime}</p>
         </div>
         <div className='bg-neutral-900/50 p-2 rounded'>{getWeatherDescription(currentWeather.weatherCode, currentHourIndex >= 6 && currentHourIndex < 18)}</div>
-        <div className='text-md w-full'>
-          <div className='flex flex-col gap-2 items-center justify-between'>
+          <div className='flex flex-col gap-2 items-center justify-between text-md w-full'>
             <p><i className="fa-solid fa-temperature-half mr-2"></i>{currentWeather.temperature} {hourly_units.temperature_2m}</p>
             <p><i className="fa-solid fa-cloud mr-2"></i>{currentWeather.cloudCover} {hourly_units.cloud_cover}</p>
             <p><i className="fa-solid fa-bars mr-2"></i>{currentWeather.surfacePressure} {hourly_units.surface_pressure}</p>
             <p><i className="fa-solid fa-wind mr-2"></i>{currentWeather.windSpeed} {hourly_units.wind_speed_10m}</p>
           </div>
         </div>
-      </div>
     </div>
   );
 }

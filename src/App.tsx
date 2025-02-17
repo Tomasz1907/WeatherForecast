@@ -5,6 +5,7 @@ import WeekWeather from './components/WeekWeather';
 import CurrentWeather from './components/CurrentWeather';
 import { WeatherData } from './types';
 import { weatherCodeDescriptions, dayEmojis, nightEmojis } from './weatherDescriptions';
+import { getTranslation } from './utils/translation';
 import './index.css'; // Import the CSS file
 
 interface CityCoords {
@@ -41,14 +42,14 @@ const App: React.FC = () => {
             setWeatherData(data);
             setError(null);
           } else {
-            setError('No weather data available');
+            setError(getTranslation('noWeatherData'));
           }
         } catch (error) {
-          setError('Error fetching weather data');
+          setError(getTranslation('errorFetchingWeather'));
           console.error('Error fetching weather data:', error);
         }
       } else {
-        setError('No city selected');
+        setError(getTranslation('noCitySelected'));
       }
     };
 

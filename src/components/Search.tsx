@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from 'react-use';
+import { getTranslation } from '../utils/translation';
 
 interface City {
     id: number;
@@ -32,9 +33,10 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
                     setListHidden(cities.some(c => c.name === cityName));
                 } else {
                     setCities([]);
+                    setListHidden(true);
                 }
             } catch (error) {
-                console.error('Error fetching city data:', error);
+                console.error(getTranslation('errorFetchingCityData'), error);
                 setCities([]);
             }
         };
@@ -61,7 +63,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
                     value={city}
                     spellCheck={false}
                     onChange={(e) => setCity(e.target.value)}
-                    placeholder="Enter city name"
+                    placeholder={getTranslation('enterCityName')}
                     className="p-2 outline-0 w-full"
                 />
             </div>
