@@ -25,7 +25,7 @@ const CurrentWeather = ({ weatherData, getWeatherDescription }: { weatherData: W
   return (
     <div className='flex flex-col items-center gap-5'>
       <p className='text-xl font-bold'>Current Weather</p>
-      <div className='flex flex-col items-center gap-5 border-4 rounded-xl py-5 px-2 min-w-[220px] bg-gradient-to-b from-sky-300/50 to-neutral-800 shadow-lg'>
+      <div className='flex flex-col items-center gap-5 border-4 rounded-xl py-5 px-2 min-w-[220px] md:px-10 bg-gradient-to-b from-sky-300/50 to-neutral-800 shadow-lg'>
       <div className='flex flex-col items-center gap-1 bg-neutral-900/50 p-5 rounded-xl shadow-lg'>
         <div className='text-lg'>{formattedTime}</div>
         <div className='text-sm'>{formattedDate}</div>

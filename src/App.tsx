@@ -69,7 +69,7 @@ const App = () => {
     86: '❄️ Heavy snow showers',
     95: '⛈️ Slight or moderate thunderstorm',
     96: '⛈️ Thunderstorm with slight hail',
-    99: '⛈️ Thunderstorm with heavy hail'
+    99: '⛈️ Thunderstorm with heavy hail ab abc abc'
   };
 
   const getWeatherDescription = (code: number, isDay: boolean): string => {
