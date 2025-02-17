@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Search from './components/Search';
 import WeekWeather from './components/WeekWeather';
@@ -69,7 +69,7 @@ const App = () => {
     86: '❄️ Heavy snow showers',
     95: '⛈️ Slight or moderate thunderstorm',
     96: '⛈️ Thunderstorm with slight hail',
-    99: '⛈️ Thunderstorm with heavy hail ab abc abc'
+    99: '⛈️ Thunderstorm with heavy hail'
   };
 
   const getWeatherDescription = (code: number, isDay: boolean): string => {

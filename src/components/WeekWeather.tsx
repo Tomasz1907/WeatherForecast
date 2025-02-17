@@ -1,4 +1,3 @@
-import React from 'react';
 import { WeatherData } from '../types';
 
 const WeekWeather = ({ weatherData, getWeatherDescription }: { weatherData: WeatherData | null, getWeatherDescription: (code: number, isDay: boolean) => string }) => {
