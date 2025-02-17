@@ -30,6 +30,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weatherData, getWeather
     weatherCode: hourly.weather_code[currentHourIndex],
     surfacePressure: hourly.surface_pressure[currentHourIndex],
     cloudCover: hourly.cloud_cover[currentHourIndex],
+    precipationProbability: hourly.precipitation_probability[currentHourIndex],
     windSpeed: hourly.wind_speed_10m[currentHourIndex],
   };
 
@@ -48,6 +49,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weatherData, getWeather
           <div className='flex flex-col gap-2 items-center justify-between text-md w-full'>
             <p><i className="fa-solid fa-temperature-half mr-2"></i>{currentWeather.temperature} {hourly_units.temperature_2m}</p>
             <p><i className="fa-solid fa-cloud mr-2"></i>{currentWeather.cloudCover} {hourly_units.cloud_cover}</p>
+            <p><i className="fa-solid fa-cloud-rain mr-2"></i>{currentWeather.precipationProbability} {hourly_units.precipitation_probability}</p>
             <p><i className="fa-solid fa-bars mr-2"></i>{currentWeather.surfacePressure} {hourly_units.surface_pressure}</p>
             <p><i className="fa-solid fa-wind mr-2"></i>{currentWeather.windSpeed} {hourly_units.wind_speed_10m}</p>
           </div>

@@ -35,7 +35,7 @@ const App: React.FC = () => {
       if (latitude && longitude) {
         try {
           const response = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,surface_pressure,cloud_cover,wind_speed_10m`
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,surface_pressure,cloud_cover,precipitation_probability,wind_speed_10m`
           );
           const data = await response.json();
           if (data) {

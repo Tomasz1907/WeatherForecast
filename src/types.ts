@@ -4,6 +4,7 @@ export interface HourlyData {
   weather_code: number[];
   surface_pressure: number[];
   cloud_cover: number[];
+  precipitation_probability: number[];
   wind_speed_10m: number[];
 }
 
@@ -13,6 +14,7 @@ export interface HourlyUnits {
   weather_code: string;
   surface_pressure: string;
   cloud_cover: string;
+  precipitation_probability: string;
   wind_speed_10m: string;
 }
 
