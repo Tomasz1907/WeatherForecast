@@ -53,8 +53,8 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center text-neutral-900">
-            <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 text-neutral-900 border-2">
+        <div className="w-full flex flex-col items-center text-neutral-800">
+            <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 border-2">
                 <i className="fa-solid fa-magnifying-glass px-4 border-r-2"></i>
                 <input
                     type="text"

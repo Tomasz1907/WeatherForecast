@@ -44,8 +44,8 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({ weatherData, getWeather
           <p className='text-md'>{formattedTime}</p>
         </div>
         <div className='bg-neutral-900/50 p-2 rounded'>{getWeatherDescription(currentWeather.weatherCode, currentHourIndex >= 6 && currentHourIndex < 18)}</div>
-        <div className='text-sm w-full'>
-          <div className='flex flex-col items-center justify-between'>
+        <div className='text-md w-full'>
+          <div className='flex flex-col gap-2 items-center justify-between'>
             <p><i className="fa-solid fa-temperature-half mr-2"></i>{currentWeather.temperature} {hourly_units.temperature_2m}</p>
             <p><i className="fa-solid fa-cloud mr-2"></i>{currentWeather.cloudCover} {hourly_units.cloud_cover}</p>
             <p><i className="fa-solid fa-bars mr-2"></i>{currentWeather.surfacePressure} {hourly_units.surface_pressure}</p>
