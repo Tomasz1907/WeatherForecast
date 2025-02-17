@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDebounce } from 'react-use';
 
 interface City {
@@ -14,29 +14,33 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState<string>('');
     const [cities, setCities] = useState<City[]>([]);
-    const [debouncedCity, setDebouncedCity] = useState('');
-    const [listHidden, setListHidden] = useState(true);
+    const [debouncedCity, setDebouncedCity] = useState<string>('');
+    const [listHidden, setListHidden] = useState<boolean>(true);
+
     useDebounce(() => setDebouncedCity(city), 500, [city]);
 
     useEffect(() => {
-        if (debouncedCity) {
-            fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${debouncedCity}`)
-                .then((res) => res.json())
-                .then(data => {
-                    if (data.results) {
-                        setCities(data.results);
-                        const cityName = debouncedCity.split(',')[0].trim();
-                        setListHidden(cities.some(c => c.name === cityName));
-                    } else {
-                        setCities([]);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching city data:', error);
+        const fetchCities = async () => {
+            try {
+                const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${debouncedCity}`);
+                const data = await response.json();
+                if (data.results) {
+                    setCities(data.results);
+                    const cityName = debouncedCity.split(',')[0].trim();
+                    setListHidden(cities.some(c => c.name === cityName));
+                } else {
                     setCities([]);
-                });
+                }
+            } catch (error) {
+                console.error('Error fetching city data:', error);
+                setCities([]);
+            }
+        };
+
+        if (debouncedCity) {
+            fetchCities();
         } else {
             setCities([]);
         }
@@ -50,7 +54,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
 
     return (
         <div className="w-full flex flex-col items-center text-neutral-900">
-            <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 text-neutral-900  border-2">
+            <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 text-neutral-900 border-2">
                 <i className="fa-solid fa-magnifying-glass px-4 border-r-2"></i>
                 <input
                     type="text"
@@ -58,7 +62,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
                     spellCheck={false}
                     onChange={(e) => setCity(e.target.value)}
                     placeholder="Enter city name"
-                    className='p-2 outline-0 w-full'
+                    className="p-2 outline-0 w-full"
                 />
             </div>
             <ul className={`${listHidden && 'hidden'} w-full md:w-2/3 max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col`}>
@@ -66,7 +70,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
                     <button
                         key={id}
                         onClick={() => handleCitySelect(city)}
-                        className='p-2 border-b-2 w-full text-left cursor-pointer hover:bg-neutral-200'
+                        className="p-2 border-b-2 w-full text-left cursor-pointer hover:bg-neutral-200"
                     >
                         {city.name}, {city.country}
                     </button>
