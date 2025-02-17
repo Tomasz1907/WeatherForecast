@@ -50,14 +50,18 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
 
     return (
         <div className="w-full flex flex-col items-center text-neutral-900">
-            <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="Enter city name"
-                className='p-2 rounded-md bg-neutral-100 outline-0 w-full md:w-2/3 border-2'
-            />
-            <ul className={`${listHidden && 'hidden'} w-full md:w-2/3 h-50  overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col`}>
+            <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 text-neutral-900  border-2">
+                <i className="fa-solid fa-magnifying-glass px-4 border-r-2"></i>
+                <input
+                    type="text"
+                    value={city}
+                    spellCheck={false}
+                    onChange={(e) => setCity(e.target.value)}
+                    placeholder="Enter city name"
+                    className='p-2 outline-0 w-full'
+                />
+            </div>
+            <ul className={`${listHidden && 'hidden'} w-full md:w-2/3 max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col`}>
                 {cities.map((city, id) => (
                     <button
                         key={id}

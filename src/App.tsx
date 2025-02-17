@@ -86,8 +86,6 @@ const App = () => {
     setLongitude(selectedCity.longitude);
   };
 
-  console.log(latitude, longitude);
-
   useEffect(() => {
     if (latitude && longitude) {
       fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,surface_pressure,cloud_cover,wind_speed_10m`)
