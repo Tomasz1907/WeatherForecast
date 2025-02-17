@@ -55,7 +55,7 @@ const App: React.FC = () => {
   }, [latitude, longitude]);
 
   return (
-    <div className='min-h-screen bg-sky-500 text-white text-xl flex flex-col items-center p-5'>
+    <div className='min-h-screen bg-[url(../public/background.jpg)] bg-center text-white text-xl flex flex-col items-center p-5'>
       <div className='w-full flex flex-col items-center gap-5'>
         <Header />
         <Search handleCityCoords={handleCityCoords} />
