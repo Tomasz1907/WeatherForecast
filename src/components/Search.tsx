@@ -146,7 +146,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
           spellCheck={false}
           onChange={(e) => setCity(e.target.value)}
           placeholder={getTranslation("enterCityName")}
-          className="p-2 outline-0 w-full"
+          className="p-2 outline-0 w-full text-sm md:text-lg"
         />
         <button onClick={handleButtonClick}>
           <i
@@ -159,7 +159,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
       <ul
         className={`${
           listHidden && "hidden"
-        } w-full md:w-2/3 max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col`}
+        } w-full md:w-2/3 max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col text-sm md:text-lg`}
       >
         {cities.map((city, id) => (
           <button

@@ -66,7 +66,11 @@ const App: React.FC = () => {
       <Header />
       <div className="w-full flex flex-col items-center gap-5 p-5">
         <Search handleCityCoords={handleCityCoords} />
-        {error && <div className="text-white font-bold">{error}</div>}
+        {error && (
+          <div className="text-center text-white font-bold text-sm md:text-md">
+            {error}
+          </div>
+        )}
         <CurrentWeather
           weatherData={weatherData}
           getWeatherDescription={getWeatherDescription}

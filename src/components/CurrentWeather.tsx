@@ -48,7 +48,11 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   }, []);
 
   if (!weatherData || !weatherData.hourly) {
-    return <div>{getTranslation("noWeatherData")}</div>;
+    return (
+      <div className="w-full text-center text-sm md:text-md">
+        {getTranslation("noWeatherData")}
+      </div>
+    );
   }
 
   const { hourly, hourly_units } = weatherData;
