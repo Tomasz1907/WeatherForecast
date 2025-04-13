@@ -62,8 +62,10 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
   });
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 gap-10 bg-indigo-500/40 p-2 rounded-lg">
-      <p className="text-xl font-bold">{getTranslation("weeklyWeather")}</p>
+    <div className="flex flex-col items-center w-full md:w-2/3 gap-10 bg-blue-500/20 p-2 rounded-lg">
+      <p className="text-base sm:text-lg md:text-xl font-bold pt-2">
+        {getTranslation("weeklyWeather")}
+      </p>
       {dailyWeather.map((day, index) => (
         <div
           key={index}
@@ -81,24 +83,24 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
             <p className="text-lg">
               {getWeatherDescription(day.dayWeatherCode, true).slice(0, 2)}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-temperature-half mr-1"></i>
               {day.dayTemperature} {hourly_units.temperature_2m}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-cloud mr-1"></i>
               {day.dayCloudCover} {hourly_units.cloud_cover}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-cloud-rain mr-1"></i>
               {day.dayPrecipationProbability}{" "}
               {hourly_units.precipitation_probability}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-bars mr-1"></i>
               {day.daySurfacePressure} {hourly_units.surface_pressure}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-wind mr-1"></i>
               {day.dayWindSpeed} {hourly_units.wind_speed_10m}
             </p>
@@ -107,24 +109,24 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
             <p className="text-lg">
               {getWeatherDescription(day.nightWeatherCode, false).slice(0, 2)}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-temperature-half mr-1"></i>
               {day.nightTemperature} {hourly_units.temperature_2m}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-cloud mr-1"></i>
               {day.nightCloudCover} {hourly_units.cloud_cover}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-cloud-rain mr-1"></i>
               {day.nightPrecipationProbability}{" "}
               {hourly_units.precipitation_probability}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-bars mr-1"></i>
               {day.nightSurfacePressure} {hourly_units.surface_pressure}
             </p>
-            <p>
+            <p className="flex flex-col md:flex-row items-center justify-center gap-1">
               <i className="fa-solid fa-wind mr-1"></i>
               {day.nightWindSpeed} {hourly_units.wind_speed_10m}
             </p>

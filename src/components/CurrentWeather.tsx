@@ -14,7 +14,6 @@ import {
   Filler,
 } from "chart.js";
 
-// Register Chart.js components, including Filler
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -55,8 +54,6 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   const { hourly, hourly_units } = weatherData;
   const currentHourIndex = currentTime.getHours();
   const predictionHours = 6;
-
-  // Validate data existence
   const currentWeather = {
     temperature:
       hourly.temperature_2m &&
@@ -88,7 +85,6 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
         : 0,
   };
 
-  // Prepare data for today's hours (0 to current hour + 6 hours prediction)
   const hours = Array.from(
     { length: currentHourIndex + 1 + predictionHours },
     (_, i) => {
@@ -97,7 +93,6 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
     }
   );
 
-  // Helper to slice actual and predicted data
   const getActualAndPredictedData = (
     data: number[] | undefined,
     actualEndIndex: number,
@@ -113,11 +108,10 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
       actualEndIndex + 1 + predictionLength
     );
 
-    // Fallback extrapolation if predicted data is unavailable
     if (predicted.length < predictionLength && actual.length >= 2) {
       const last = actual[actual.length - 1] || 0;
       const secondLast = actual[actual.length - 2] || 0;
-      const slope = last - secondLast; // Linear trend
+      const slope = last - secondLast;
       const extrapolated = Array(predictionLength - predicted.length)
         .fill(0)
         .map((_, i) => last + slope * (i + 1));
@@ -135,7 +129,6 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
     ].slice(0, actualEndIndex + 1 + predictionLength);
   };
 
-  // Chart data based on active tab
   const getLineData = () => {
     const combinedData = {
       temperature: getActualAndPredictedData(
@@ -170,9 +163,9 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
                 hourly_units?.temperature_2m || "°C"
               })`,
               data: combinedData.temperature,
-              borderColor: "rgba(255, 0, 0, 1)", // Red
-              backgroundColor: "rgba(255, 0, 0, 0.3)", // Semi-transparent fill
-              fill: "origin", // Fill to x-axis
+              borderColor: "rgba(255, 0, 0, 1)",
+              backgroundColor: "rgba(255, 0, 0, 0.3)",
+              fill: "origin",
               yAxisID: "y-temp",
               tension: 0.3,
               pointRadius: 3,
@@ -186,9 +179,9 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
                 hourly_units?.precipitation_probability || "%"
               })`,
               data: combinedData.precipitationProbability,
-              borderColor: "rgba(0, 0, 255, 1)", // Blue
-              backgroundColor: "rgba(0, 0, 255, 0.3)", // Semi-transparent fill
-              fill: "origin", // Fill to x-axis
+              borderColor: "rgba(0, 0, 255, 1)",
+              backgroundColor: "rgba(0, 0, 255, 0.3)",
+              fill: "origin",
               yAxisID: "y-percent",
               tension: 0.3,
               pointRadius: 3,
@@ -208,9 +201,9 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
                 hourly_units?.surface_pressure || "hPa"
               })`,
               data: combinedData.surfacePressure,
-              borderColor: "rgba(0, 128, 0, 1)", // Green
-              backgroundColor: "rgba(0, 128, 0, 0.3)", // Semi-transparent fill
-              fill: "origin", // Fill to x-axis
+              borderColor: "rgba(0, 128, 0, 1)",
+              backgroundColor: "rgba(0, 128, 0, 0.3)",
+              fill: "origin",
               yAxisID: "y-pressure",
               tension: 0.3,
               pointRadius: 3,
@@ -230,9 +223,9 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
                 hourly_units?.wind_speed_10m || "km/h"
               })`,
               data: combinedData.windSpeed,
-              borderColor: "rgba(128, 0, 128, 1)", // Purple
-              backgroundColor: "rgba(128, 0, 128, 0.3)", // Semi-transparent fill
-              fill: "origin", // Fill to x-axis
+              borderColor: "rgba(128, 0, 128, 1)",
+              backgroundColor: "rgba(128, 0, 128, 0.3)",
+              fill: "origin",
               yAxisID: "y-wind",
               tension: 0.3,
               pointRadius: 3,
@@ -250,13 +243,14 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 
   const lineOptions = {
     responsive: true,
+    maintainAspectRatio: false, // Allow chart to stretch
     plugins: {
       legend: {
         display: true,
         position: "bottom" as const,
         labels: {
           color: "rgba(255, 255, 255, 0.9)",
-          font: { size: 12 },
+          font: { size: 10 }, // Smaller font for mobile
         },
       },
       tooltip: {
@@ -278,7 +272,10 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
     scales: {
       x: {
         grid: { color: "rgba(255, 255, 255, 0.1)" },
-        ticks: { color: "rgba(255, 255, 255, 0.9)" },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 }, // Smaller ticks
+        },
       },
       "y-temp": {
         type: "linear" as const,
@@ -290,9 +287,13 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             hourly_units?.temperature_2m || "°C"
           })`,
           color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
         },
         grid: { color: "rgba(255, 255, 255, 0.1)" },
-        ticks: { color: "rgba(255, 255, 255, 0.9)" },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
+        },
       },
       "y-percent": {
         type: "linear" as const,
@@ -304,9 +305,13 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             hourly_units?.precipitation_probability || "%"
           })`,
           color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
         },
         grid: { drawOnChartArea: false },
-        ticks: { color: "rgba(255, 255, 255, 0.9)" },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
+        },
         min: 0,
         max: 100,
       },
@@ -320,9 +325,13 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             hourly_units?.surface_pressure || "hPa"
           })`,
           color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
         },
         grid: { color: "rgba(255, 255, 255, 0.1)" },
-        ticks: { color: "rgba(255, 255, 255, 0.9)" },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
+        },
       },
       "y-wind": {
         type: "linear" as const,
@@ -334,9 +343,13 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             hourly_units?.wind_speed_10m || "km/h"
           })`,
           color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
         },
         grid: { color: "rgba(255, 255, 255, 0.1)" },
-        ticks: { color: "rgba(255, 255, 255, 0.9)" },
+        ticks: {
+          color: "rgba(255, 255, 255, 0.9)",
+          font: { size: 10 },
+        },
         min: 0,
       },
     },
@@ -355,50 +368,54 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   });
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 gap-5 text-sm bg-indigo-500/20 p-5 rounded-lg">
+    <div className="flex flex-col items-center w-full gap-4 sm:gap-5 p-3 sm:p-5 bg-blue-500/20 rounded-lg">
       <div className="flex flex-col w-full items-center justify-center gap-2">
-        <p className="text-xl font-bold">{formattedDate}</p>
-        <p className="text-2xl font-mono">{formattedTime}</p>
+        <p className="text-base sm:text-lg md:text-xl font-bold">
+          {formattedDate}
+        </p>
+        <p className="text-lg sm:text-xl md:text-2xl font-mono">
+          {formattedTime}
+        </p>
       </div>
-      <p className="text-xl font-bold">{getTranslation("currentWeather")}</p>
-      <div className="w-full flex items-center justify-center gap-5 text-2xl bg-blue-500/20 p-5 rounded-lg">
-        <p>
+      <p className="text-base sm:text-lg md:text-xl font-bold">
+        {getTranslation("currentWeather")}
+      </p>
+      <div className="w-full flex items-center justify-center gap-3 sm:gap-5 bg-blue-500/20 p-3 sm:p-5 rounded-lg">
+        <p className="text-sm md:text-lg">
           {getWeatherDescription(
             currentWeather.weatherCode,
             currentHourIndex >= 6 && currentHourIndex < 18
           )}
         </p>
-        <p>
-          <i className="fa-solid fa-temperature-half mr-2"></i>
+        <p className="text-sm md:text-lg">
+          <i className="fa-solid fa-temperature-half mr-1 sm:mr-2"></i>
           {currentWeather.temperature} {hourly_units?.temperature_2m || "°C"}
         </p>
       </div>
-      <div className="w-full flex items-center justify-center gap-5">
-        <p>
-          <i className="fa-solid fa-cloud mr-2"></i>
+      <div className="w-full flex flex-wrap justify-center gap-3 sm:gap-5 text-xs sm:text-sm">
+        <p className="flex flex-col sm:flex-row items-center gap-1">
+          <i className="fa-solid fa-cloud mr-1 sm:mr-2"></i>
           {currentWeather.cloudCover} {hourly_units?.cloud_cover || "%"}
         </p>
-        <p>
-          <i className="fa-solid fa-cloud-rain mr-2"></i>
+        <p className="flex flex-col sm:flex-row items-center gap-1">
+          <i className="fa-solid fa-cloud-rain mr-1 sm:mr-2"></i>
           {currentWeather.precipitationProbability}{" "}
           {hourly_units?.precipitation_probability || "%"}
         </p>
-        <p>
-          <i className="fa-solid fa-bars mr-2"></i>
+        <p className="flex flex-col sm:flex-row items-center gap-1">
+          <i className="fa-solid fa-bars mr-1 sm:mr-2"></i>
           {currentWeather.surfacePressure}{" "}
           {hourly_units?.surface_pressure || "hPa"}
         </p>
-        <p>
-          <i className="fa-solid fa-wind mr-2"></i>
+        <p className="flex flex-col sm:flex-row items-center gap-1">
+          <i className="fa-solid fa-wind mr-1 sm:mr-2"></i>
           {currentWeather.windSpeed} {hourly_units?.wind_speed_10m || "km/h"}
         </p>
       </div>
-      {/* Chart */}
-      <div className="w-full flex flex-col items-center justify-center py-5 px-2 bg-neutral-800/50 rounded-lg">
-        {/* Tabs */}
-        <div className="w-full flex justify-center gap-4 mb-4 text-xs ">
+      <div className="w-full flex flex-col items-center justify-center p-2 sm:p-4 bg-neutral-800/50 rounded-lg">
+        <div className="w-full flex justify-center gap-2 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm">
           <button
-            className={`p-2 rounded ${
+            className={`px-2 py-1 sm:px-3 sm:py-2 rounded ${
               activeTab === "tempPrecip"
                 ? "bg-blue-500 text-white"
                 : "bg-neutral-800/50 text-gray-300 hover:bg-neutral-800"
@@ -408,7 +425,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             {getTranslation("tempPrecipTab")}
           </button>
           <button
-            className={`p-2 rounded ${
+            className={`px-2 py-1 sm:px-3 sm:py-2 rounded ${
               activeTab === "pressure"
                 ? "bg-blue-500 text-white"
                 : "bg-neutral-800/50 text-gray-300 hover:bg-neutral-800"
@@ -418,7 +435,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             {getTranslation("pressureTab")}
           </button>
           <button
-            className={`p-2 rounded ${
+            className={`px-2 py-1 sm:px-3 sm:py-2 rounded ${
               activeTab === "wind"
                 ? "bg-blue-500 text-white"
                 : "bg-neutral-800/50 text-gray-300 hover:bg-neutral-800"
@@ -428,7 +445,9 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
             {getTranslation("windSpeedTab")}
           </button>
         </div>
-        <Line data={getLineData()} options={lineOptions} />
+        <div className="w-full h-[40vh] sm:h-[50vh] min-h-[250px]">
+          <Line data={getLineData()} options={lineOptions} />
+        </div>
       </div>
     </div>
   );
