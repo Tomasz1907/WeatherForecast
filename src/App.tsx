@@ -1,12 +1,17 @@
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Search from './components/Search';
-import WeekWeather from './components/WeekWeather';
-import CurrentWeather from './components/CurrentWeather';
-import { WeatherData } from './types';
-import { weatherCodeDescriptions, dayEmojis, nightEmojis } from './weatherDescriptions';
-import { getTranslation } from './utils/translation';
-import './index.css'; // Import the CSS file
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Search from "./components/Search";
+import WeekWeather from "./components/WeekWeather";
+import CurrentWeather from "./components/CurrentWeather";
+import { WeatherData } from "./types";
+import {
+  weatherCodeDescriptions,
+  dayEmojis,
+  nightEmojis,
+} from "./weatherDescriptions";
+import { getTranslation } from "./utils/translation";
+import "./index.css";
+import Footer from "./components/Footer";
 
 interface CityCoords {
   latitude: number;
@@ -20,7 +25,7 @@ const App: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const getWeatherDescription = (code: number, isDay: boolean): string => {
-    const description = weatherCodeDescriptions[code] || 'Unknown weather code';
+    const description = weatherCodeDescriptions[code] || "Unknown weather code";
     const emoji = isDay ? dayEmojis[code] : nightEmojis[code];
     return `${emoji} ${description}`;
   };
@@ -42,14 +47,14 @@ const App: React.FC = () => {
             setWeatherData(data);
             setError(null);
           } else {
-            setError(getTranslation('noWeatherData'));
+            setError(getTranslation("noWeatherData"));
           }
         } catch (error) {
-          setError(getTranslation('errorFetchingWeather'));
-          console.error('Error fetching weather data:', error);
+          setError(getTranslation("errorFetchingWeather"));
+          console.error("Error fetching weather data:", error);
         }
       } else {
-        setError(getTranslation('noCitySelected'));
+        setError(getTranslation("noCitySelected"));
       }
     };
 
@@ -57,14 +62,21 @@ const App: React.FC = () => {
   }, [latitude, longitude]);
 
   return (
-    <div className='min-h-screen bg-blur text-white text-xl flex flex-col items-center p-5'>
-      <div className='w-full flex flex-col items-center gap-5 '>
-        <Header />
+    <div className="min-h-screen bg-blur text-white text-xl flex flex-col items-center bg-gradient-to-b from-blue-950 to-neutral-300 justify-between">
+      <Header />
+      <div className="w-full flex flex-col items-center gap-5 p-5">
         <Search handleCityCoords={handleCityCoords} />
-        {error && <div className='text-white font-bold'>{error}</div>}
-        <CurrentWeather weatherData={weatherData} getWeatherDescription={getWeatherDescription} />
-        <WeekWeather weatherData={weatherData} getWeatherDescription={getWeatherDescription} />
+        {error && <div className="text-white font-bold">{error}</div>}
+        <CurrentWeather
+          weatherData={weatherData}
+          getWeatherDescription={getWeatherDescription}
+        />
+        <WeekWeather
+          weatherData={weatherData}
+          getWeatherDescription={getWeatherDescription}
+        />
       </div>
+      <Footer />
     </div>
   );
 };

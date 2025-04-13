@@ -35,7 +35,12 @@
     "heavySnowShowers": "Heavy snow showers",
     "slightThunderstorm": "Slight or moderate thunderstorm",
     "thunderstormWithSlightHail": "Thunderstorm with slight hail",
-    "thunderstormWithHeavyHail": "Thunderstorm with heavy hail"
+    "thunderstormWithHeavyHail": "Thunderstorm with heavy hail",
+    "tempPrecipTab": "Temp & Precip",
+    "precipitation": "Precipitation Probability",
+    "pressureTab": "Pressure",
+    "windSpeedTab": "Wind Speed",
+    "predicted": "Predicted"
   },
   "pl": {
     "headerText": "Sprawdź pogodę w swoim mieście",
@@ -51,7 +56,7 @@
     "partlyCloudy": "Częściowe zachmurzenie",
     "overcast": "Zachmurzenie",
     "fog": "Mgła",
-    "depositingRimeFog": "Oszronienie",
+    "depositingRime февраль": "Oszronienie",
     "lightDrizzle": "Lekka mżawka",
     "moderateDrizzle": "Umiarkowana mżawka",
     "denseDrizzle": "Gęsta mżawka",
@@ -73,6 +78,11 @@
     "heavySnowShowers": "Silne przelotne opady śniegu",
     "slightThunderstorm": "Lekka lub umiarkowana burza",
     "thunderstormWithSlightHail": "Burza z lekkim gradem",
-    "thunderstormWithHeavyHail": "Burza z silnym gradem"
+    "thunderstormWithHeavyHail": "Burza z silnym gradem",
+    "tempPrecipTab": "Temperatura i Opady",
+    "precipitation": "Prawdopodobieństwo Opadów",
+    "pressureTab": "Ciśnienie",
+    "windSpeedTab": "Prędkość Wiatru",
+    "predicted": "Przewidywane"
   }
 }
