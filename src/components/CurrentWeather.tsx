@@ -247,14 +247,14 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 
   const lineOptions = {
     responsive: true,
-    maintainAspectRatio: false, // Allow chart to stretch
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
         position: "bottom" as const,
         labels: {
           color: "rgba(255, 255, 255, 0.9)",
-          font: { size: 10 }, // Smaller font for mobile
+          font: { size: 10 },
         },
       },
       tooltip: {
@@ -278,7 +278,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
         grid: { color: "rgba(255, 255, 255, 0.1)" },
         ticks: {
           color: "rgba(255, 255, 255, 0.9)",
-          font: { size: 10 }, // Smaller ticks
+          font: { size: 10 },
         },
       },
       "y-temp": {
@@ -372,7 +372,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   });
 
   return (
-    <div className="flex flex-col items-center w-full gap-4 sm:gap-5 p-3 sm:p-5 bg-blue-500/20 rounded-lg">
+    <div className="flex flex-col items-center w-full md:w-2/3 gap-4 sm:gap-5 p-3 sm:p-5 bg-blue-500/20 rounded-lg">
       <div className="flex flex-col w-full items-center justify-center gap-2">
         <p className="text-base sm:text-lg md:text-xl font-bold">
           {formattedDate}
