@@ -8,6 +8,7 @@ interface City {
   country: string;
   latitude: number;
   longitude: number;
+  timezone: string;
 }
 
 interface SearchProps {
@@ -30,9 +31,13 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
         );
         const data = await response.json();
         if (data.results) {
-          setCities(data.results);
+          const updatedCities = data.results.map((result: any) => ({
+            ...result,
+            timezone: result.timezone || "GMT",
+          }));
+          setCities(updatedCities);
           const cityName = debouncedCity.split(",")[0].trim();
-          setListHidden(cities.some((c) => c.name === cityName));
+          setListHidden(updatedCities.some((c: City) => c.name === cityName));
         } else {
           setCities([]);
           setListHidden(true);
@@ -53,12 +58,15 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
   const handleCitySelect = (selectedCity: City) => {
     setCity(`${selectedCity.name}, ${selectedCity.country}`);
     setListHidden(true);
-    handleCityCoords(selectedCity);
+    handleCityCoords({
+      ...selectedCity,
+      timezone: selectedCity.timezone || "GMT",
+    });
   };
 
   const handleGetLocalization = () => {
     if (!navigator.geolocation) {
-      setCity("Localization not available");
+      setCity(getTranslation("localizationNot"));
       setCities([]);
       setListHidden(true);
       return;
@@ -74,7 +82,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
           const cityName = address?.city || address?.town || address?.village;
 
           if (!cityName) {
-            setCity("Localization not available");
+            setCity(getTranslation("localizationNot"));
             setCities([]);
             setListHidden(true);
             return;
@@ -88,7 +96,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
           const { results } = await searchResponse.json();
 
           if (!results?.length) {
-            setCity("Localization not available");
+            setCity(getTranslation("localizationNot"));
             setCities([]);
             setListHidden(true);
             return;
@@ -107,10 +115,14 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
           }, results[0]);
 
           setCity(`${closestCity.name}, ${closestCity.country}`);
+          handleCityCoords({
+            ...closestCity,
+            timezone: closestCity.timezone || "GMT",
+          });
           setCities([]);
           setListHidden(true);
         } catch {
-          setCity("Localization not available");
+          setCity(getTranslation("localizationNot"));
           setCities([]);
           setListHidden(true);
         } finally {
@@ -118,7 +130,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
         }
       },
       () => {
-        setCity("Localization not available");
+        setCity(getTranslation("localizationNot"));
         setCities([]);
         setListHidden(true);
       },

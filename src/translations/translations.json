@@ -40,7 +40,8 @@
     "precipitation": "Precipitation Probability",
     "pressureTab": "Pressure",
     "windSpeedTab": "Wind Speed",
-    "predicted": "Predicted"
+    "predicted": "Predicted",
+    "localizationNot": "Localization Not Available"
   },
   "pl": {
     "headerText": "Sprawdź pogodę w swoim mieście",
@@ -83,6 +84,7 @@
     "precipitation": "Prawdopodobieństwo Opadów",
     "pressureTab": "Ciśnienie",
     "windSpeedTab": "Prędkość Wiatru",
-    "predicted": "Przewidywane"
+    "predicted": "Przewidywane",
+    "localizationNot": "Lokalizacja nie dostępna"
   }
 }

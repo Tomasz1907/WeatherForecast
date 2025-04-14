@@ -4,6 +4,7 @@ import { getTranslation } from "../utils/translation";
 interface WeekWeatherProps {
   weatherData: WeatherData | null;
   getWeatherDescription: (code: number, isDay: boolean) => string;
+  timezone: string;
 }
 
 interface DailyWeather {
@@ -25,8 +26,9 @@ interface DailyWeather {
 const WeekWeather: React.FC<WeekWeatherProps> = ({
   weatherData,
   getWeatherDescription,
+  timezone,
 }) => {
-  if (!weatherData) {
+  if (!weatherData || !weatherData.hourly || !weatherData.hourly.time) {
     return null;
   }
 
@@ -34,8 +36,15 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
 
   const days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date();
-    date.setDate(date.getDate() + i);
-    return date;
+    const localDateString = date.toLocaleString("en-US", {
+      timeZone: timezone,
+      hour12: false,
+    });
+    const [datePart] = localDateString.split(", ");
+    const [month, day, year] = datePart.split("/").map(Number);
+    const baseDate = new Date(year, month - 1, day);
+    baseDate.setDate(baseDate.getDate() + i);
+    return baseDate;
   });
 
   const dailyWeather: DailyWeather[] = days.map((date, index) => {
@@ -45,19 +54,62 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
 
     return {
       date,
-      dayWeatherCode: hourly.weather_code[dayHourIndex],
-      nightWeatherCode: hourly.weather_code[nightHourIndex],
-      dayTemperature: hourly.temperature_2m[dayHourIndex],
-      nightTemperature: hourly.temperature_2m[nightHourIndex],
-      daySurfacePressure: hourly.surface_pressure[dayHourIndex],
-      nightSurfacePressure: hourly.surface_pressure[nightHourIndex],
-      dayCloudCover: hourly.cloud_cover[dayHourIndex],
-      nightCloudCover: hourly.cloud_cover[nightHourIndex],
-      dayPrecipationProbability: hourly.precipitation_probability[dayHourIndex],
+      dayWeatherCode:
+        hourly.weather_code && hourly.weather_code[dayHourIndex] !== undefined
+          ? hourly.weather_code[dayHourIndex]
+          : 0,
+      nightWeatherCode:
+        hourly.weather_code && hourly.weather_code[nightHourIndex] !== undefined
+          ? hourly.weather_code[nightHourIndex]
+          : 0,
+      dayTemperature:
+        hourly.temperature_2m &&
+        hourly.temperature_2m[dayHourIndex] !== undefined
+          ? hourly.temperature_2m[dayHourIndex]
+          : 0,
+      nightTemperature:
+        hourly.temperature_2m &&
+        hourly.temperature_2m[nightHourIndex] !== undefined
+          ? hourly.temperature_2m[nightHourIndex]
+          : 0,
+      daySurfacePressure:
+        hourly.surface_pressure &&
+        hourly.surface_pressure[dayHourIndex] !== undefined
+          ? hourly.surface_pressure[dayHourIndex]
+          : 0,
+      nightSurfacePressure:
+        hourly.surface_pressure &&
+        hourly.surface_pressure[nightHourIndex] !== undefined
+          ? hourly.surface_pressure[nightHourIndex]
+          : 0,
+      dayCloudCover:
+        hourly.cloud_cover && hourly.cloud_cover[dayHourIndex] !== undefined
+          ? hourly.cloud_cover[dayHourIndex]
+          : 0,
+      nightCloudCover:
+        hourly.cloud_cover && hourly.cloud_cover[nightHourIndex] !== undefined
+          ? hourly.cloud_cover[nightHourIndex]
+          : 0,
+      dayPrecipationProbability:
+        hourly.precipitation_probability &&
+        hourly.precipitation_probability[dayHourIndex] !== undefined
+          ? hourly.precipitation_probability[dayHourIndex]
+          : 0,
       nightPrecipationProbability:
-        hourly.precipitation_probability[nightHourIndex],
-      dayWindSpeed: hourly.wind_speed_10m[dayHourIndex],
-      nightWindSpeed: hourly.wind_speed_10m[nightHourIndex],
+        hourly.precipitation_probability &&
+        hourly.precipitation_probability[nightHourIndex] !== undefined
+          ? hourly.precipitation_probability[nightHourIndex]
+          : 0,
+      dayWindSpeed:
+        hourly.wind_speed_10m &&
+        hourly.wind_speed_10m[dayHourIndex] !== undefined
+          ? hourly.wind_speed_10m[dayHourIndex]
+          : 0,
+      nightWindSpeed:
+        hourly.wind_speed_10m &&
+        hourly.wind_speed_10m[nightHourIndex] !== undefined
+          ? hourly.wind_speed_10m[nightHourIndex]
+          : 0,
     };
   });
 
@@ -75,9 +127,14 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
             <p>
               {day.date.toLocaleDateString(navigator.language, {
                 weekday: "long",
+                timeZone: timezone,
               })}
             </p>
-            <p>{day.date.toLocaleDateString()}</p>
+            <p>
+              {day.date.toLocaleDateString(navigator.language, {
+                timeZone: timezone,
+              })}
+            </p>
           </div>
           <div className="flex items-center justify-between gap-4 bg-blue-800/50 p-2 rounded-t">
             <p className="text-lg">

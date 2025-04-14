@@ -14,13 +14,18 @@ import "./index.css";
 import Footer from "./components/Footer";
 
 interface CityCoords {
+  id: number;
+  name: string;
+  country: string;
   latitude: number;
   longitude: number;
+  timezone: string;
 }
 
 const App: React.FC = () => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
+  const [timezone, setTimezone] = useState<string>("GMT");
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -33,6 +38,7 @@ const App: React.FC = () => {
   const handleCityCoords = (selectedCity: CityCoords): void => {
     setLatitude(selectedCity.latitude);
     setLongitude(selectedCity.longitude);
+    setTimezone(selectedCity.timezone || "GMT");
   };
 
   useEffect(() => {
@@ -40,7 +46,9 @@ const App: React.FC = () => {
       if (latitude && longitude) {
         try {
           const response = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,surface_pressure,cloud_cover,precipitation_probability,wind_speed_10m`
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_2m,weather_code,surface_pressure,cloud_cover,precipitation_probability,wind_speed_10m&timezone=${encodeURIComponent(
+              timezone
+            )}`
           );
           const data = await response.json();
           if (data) {
@@ -59,26 +67,30 @@ const App: React.FC = () => {
     };
 
     fetchWeatherData();
-  }, [latitude, longitude]);
+  }, [latitude, longitude, timezone]);
 
   return (
-    <div className="min-h-screen bg-blur text-white text-xl flex flex-col items-center bg-gradient-to-b from-blue-950 to-neutral-300 justify-between">
+    <div className="min-h-screen flex flex-col items-center text-white bg-gradient-to-b from-blue-950 to-neutral-300">
       <Header />
-      <div className="w-full flex flex-col items-center gap-5 p-5">
+      <div className="flex-1 p-5 space-y-5 w-full">
         <Search handleCityCoords={handleCityCoords} />
         {error && (
-          <div className="text-center text-white font-bold text-sm md:text-md">
+          <div className="text-center font-bold text-sm md:text-base">
             {error}
           </div>
         )}
-        <CurrentWeather
-          weatherData={weatherData}
-          getWeatherDescription={getWeatherDescription}
-        />
-        <WeekWeather
-          weatherData={weatherData}
-          getWeatherDescription={getWeatherDescription}
-        />
+        <div className="flex flex-col items-center">
+          <CurrentWeather
+            weatherData={weatherData}
+            getWeatherDescription={getWeatherDescription}
+            timezone={timezone}
+          />
+          <WeekWeather
+            weatherData={weatherData}
+            getWeatherDescription={getWeatherDescription}
+            timezone={timezone}
+          />
+        </div>
       </div>
       <Footer />
     </div>

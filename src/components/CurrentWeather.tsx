@@ -28,24 +28,38 @@ ChartJS.register(
 interface CurrentWeatherProps {
   weatherData: WeatherData | null;
   getWeatherDescription: (code: number, isDay: boolean) => string;
+  timezone: string;
 }
 
 const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   weatherData,
   getWeatherDescription,
+  timezone,
 }) => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [localTime, setLocalTime] = useState(new Date());
   const [activeTab, setActiveTab] = useState<
     "tempPrecip" | "pressure" | "wind"
   >("tempPrecip");
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    const updateLocalTime = () => {
+      const date = new Date();
+      const localDateString = date.toLocaleString("en-US", {
+        timeZone: timezone,
+        hour12: false,
+      });
+      const [datePart, timePart] = localDateString.split(", ");
+      const [month, day, year] = datePart.split("/").map(Number);
+      const [hours, minutes, seconds] = timePart.split(":").map(Number);
+      const localDate = new Date(year, month - 1, day, hours, minutes, seconds);
+      setLocalTime(localDate);
+    };
+
+    updateLocalTime();
+    const timer = setInterval(updateLocalTime, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [timezone]);
 
   if (!weatherData || !weatherData.hourly) {
     return (
@@ -56,7 +70,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   }
 
   const { hourly, hourly_units } = weatherData;
-  const currentHourIndex = currentTime.getHours();
+  const currentHourIndex = localTime.getHours();
   const predictionHours = 6;
   const currentWeather = {
     temperature:
@@ -358,14 +372,13 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
       },
     },
   };
-
-  const formattedDate = currentTime.toLocaleDateString(navigator.language, {
+  const formattedDate = localTime.toLocaleDateString(navigator.language, {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   });
-  const formattedTime = currentTime.toLocaleTimeString(navigator.language, {
+  const formattedTime = localTime.toLocaleTimeString(navigator.language, {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
