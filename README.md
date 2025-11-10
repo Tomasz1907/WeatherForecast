@@ -69,8 +69,8 @@ npm run dev
 
 ## Screenshots
 
-| #                                                             | Description                         |
-| ------------------------------------------------------------- | ----------------------------------- |
-| ![Search & Current Weather](./screenshots/search-current.png) | **Search bar + current conditions** |
-| ![Hourly Chart](./screenshots/hourly-chart.png)               | **Hourly forecast with Chart.js**   |
-| ![7-Day Forecast](./screenshots/week-forecast.png)            | **7-day day/night details**         |
+| #                                                                    | Description                         |
+| -------------------------------------------------------------------- | ----------------------------------- |
+| ![Search & Current Weather](./public/screenshots/search-current.png) | **Search bar + current conditions** |
+| ![Hourly Chart](./public/screenshots/hourly-chart.png)               | **Hourly forecast with Chart.js**   |
+| ![7-Day Forecast](./public/screenshots/week-forecast.png)            | **7-day day/night details**         |
