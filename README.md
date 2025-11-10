@@ -37,6 +37,7 @@ Bilingual translation: **English** and **Polish**.
 - **Font Awesome** – icons
 - **Google Fonts** – `Pacifico` (logo), `DM Sans`, `Roboto`
 - **Open-Meteo API** – free weather & geocoding data
+- **Firebase** - app hosted for free on Firebase.
 
 ---
 
