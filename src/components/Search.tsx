@@ -149,8 +149,8 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center text-neutral-800">
-      <div className="w-full md:w-2/3 flex flex-row gap-2 items-center rounded-md bg-neutral-100 border-2">
+    <div className="w-full flex flex-col items-center text-neutral-800 mt-4">
+      <div className="w-full max-w-screen-2xl flex flex-row gap-2 items-center rounded-md bg-neutral-100 border-2">
         <i className="fa-solid fa-magnifying-glass px-4 border-r-2"></i>
         <input
           type="text"
@@ -171,7 +171,7 @@ const Search: React.FC<SearchProps> = ({ handleCityCoords }) => {
       <ul
         className={`${
           listHidden && "hidden"
-        } w-full md:w-2/3 max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col text-sm md:text-lg`}
+        } w-full max-w-screen-2xl max-h-50 overflow-y-auto list-none p-2 bg-neutral-100 rounded-md cursor-pointer border-1 flex flex-col text-sm md:text-lg`}
       >
         {cities.map((city, id) => (
           <button

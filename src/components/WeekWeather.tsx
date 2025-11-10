@@ -114,7 +114,7 @@ const WeekWeather: React.FC<WeekWeatherProps> = ({
   });
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 gap-10 bg-blue-500/20 p-2 rounded-lg">
+    <div className="flex flex-col items-center max-w-screen-2xl w-full gap-10 bg-[#2e446b]/80 p-2 rounded-b-lg">
       <p className="text-base sm:text-lg md:text-xl font-bold pt-2">
         {getTranslation("weeklyWeather")}
       </p>

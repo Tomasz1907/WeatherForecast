@@ -63,7 +63,7 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
 
   if (!weatherData || !weatherData.hourly) {
     return (
-      <div className="w-full text-center text-sm md:text-md">
+      <div className="w-full text-center text-lg md:text-xl">
         {getTranslation("noWeatherData")}
       </div>
     );
@@ -385,8 +385,8 @@ const CurrentWeather: React.FC<CurrentWeatherProps> = ({
   });
 
   return (
-    <div className="flex flex-col items-center w-full md:w-2/3 gap-4 sm:gap-5 p-3 sm:p-5 bg-blue-500/20 rounded-lg">
-      <div className="flex flex-col w-full items-center justify-center gap-2">
+    <div className="flex flex-col items-center max-w-screen-2xl w-full gap-4 sm:gap-5 p-3 sm:p-5 bg-[#2e446b]/80 rounded-t-lg mt-5">
+      <div className="flex flex-col w-full items-center justify-center gap-4 py-2">
         <p className="text-base sm:text-lg md:text-xl font-bold">
           {formattedDate}
         </p>

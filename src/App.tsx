@@ -72,10 +72,10 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center text-white bg-gradient-to-b from-blue-950 to-neutral-300">
       <Header />
-      <div className="flex-1 p-5 space-y-5 w-full">
+      <div className="flex-1 p-2 md:p-5 space-y-5 w-full">
         <Search handleCityCoords={handleCityCoords} />
         {error && (
-          <div className="text-center font-bold text-sm md:text-base">
+          <div className="text-center font-bold text-lg md:text-xl">
             {error}
           </div>
         )}
