@@ -13,6 +13,14 @@ Bilingual translation: **English** and **Polish**.
 
 ---
 
+## Screenshots
+
+| Search bar + current conditions          | Hourly forecast with Chart.js          | 7-day day/night details                  |
+| ---------------------------------------- | -------------------------------------- | ---------------------------------------- |
+| ![Search & Current Weather](./public/screenshots/search-current.jpg) | ![Hourly Chart](./public/screenshots/hourly-chart.jpg) | ![7-Day Forecast](./public/screenshots/week-forecast.jpg) |
+
+---
+
 ## Features
 
 | Feature                   | Description                                                                                       |
@@ -66,10 +74,4 @@ npm install
 # Start the development server
 npm run dev
 ```
-
-## Screenshots
-
-| Search bar + current conditions          | Hourly forecast with Chart.js          | 7-day day/night details                  |
-| ---------------------------------------- | -------------------------------------- | ---------------------------------------- |
-| ![Search & Current Weather](./public/screenshots/search-current.jpg) | ![Hourly Chart](./public/screenshots/hourly-chart.jpg) | ![7-Day Forecast](./public/screenshots/week-forecast.jpg) |
 
